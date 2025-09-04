@@ -44,7 +44,9 @@ class CalculatorEngine:
             
         self.pending_operation = operation
         self.should_reset_display = True
-        return current_value
+        
+        # Return the stored value (first operand) for display
+        return self.stored_value
         
     def calculate(self, current_value):
         """

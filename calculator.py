@@ -236,7 +236,8 @@ class AdvancedCalculator:
                 op_symbol = {"*": "×", "/": "÷"}.get(op, op)
                 self.history_var.set(f"{self.engine.stored_value} {op_symbol}")
             
-            self.display_var.set(str(result))
+            # Don't change the display here - keep showing the current number
+            # The display will be reset when the next number is entered
             
         except (ValueError, ZeroDivisionError) as e:
             self.display_var.set("Error")
