@@ -217,11 +217,13 @@ class AdvancedCalculator:
     def decimal_point(self):
         """Handle decimal point input"""
         current = self.display_var.get()
-        if "." not in current and current != "Error":
-            if current == "0":
-                self.display_var.set("0.")
-            else:
-                self.display_var.set(current + ".")
+        
+        # Check if we need to reset display after an operation
+        if self.engine.should_reset_display or current == "Error":
+            self.display_var.set("0.")
+            self.engine.should_reset_display = False
+        elif "." not in current:
+            self.display_var.set(current + ".")
                 
     def operator(self, op):
         """Handle operator button press"""
