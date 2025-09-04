@@ -219,11 +219,16 @@ class AdvancedCalculator:
         current = self.display_var.get()
         
         # Check if we need to reset display after an operation
-        if self.engine.should_reset_display or current == "Error":
+        if self.engine.should_reset_display:
             self.display_var.set("0.")
             self.engine.should_reset_display = False
+        elif current == "Error":
+            self.display_var.set("0.")
         elif "." not in current:
-            self.display_var.set(current + ".")
+            if current == "0":
+                self.display_var.set("0.")
+            else:
+                self.display_var.set(current + ".")
                 
     def operator(self, op):
         """Handle operator button press"""
