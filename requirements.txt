@@ -1,0 +1,24 @@
+# Advanced Calculator Pro - Requirements
+# This calculator uses only Python standard library modules
+
+# Python 3.7 or higher is required for the following features:
+# - tkinter (GUI framework) - included with Python
+# - math (mathematical functions) - included with Python  
+# - decimal (precise decimal arithmetic) - included with Python
+# - json (configuration file handling) - included with Python
+# - pathlib (file path handling) - included with Python
+# - os (operating system interface) - included with Python
+
+# No external dependencies required!
+# The calculator is built entirely with Python's standard library.
+
+# To run the calculator:
+# python calculator.py
+
+# Tested with Python versions:
+# - Python 3.7+
+# - Python 3.8+
+# - Python 3.9+
+# - Python 3.10+
+# - Python 3.11+
+# - Python 3.12+
