@@ -234,7 +234,10 @@ class AdvancedCalculator:
         """Handle operator button press"""
         try:
             current_value = float(self.display_var.get())
+            print(f"Operator pressed: {op}, Current value: {current_value}")
+            
             result = self.engine.operator(op, current_value)
+            print(f"Engine result: {result}, Should reset flag: {self.engine.should_reset_display}")
             
             # Update history display
             if self.engine.pending_operation:
