@@ -20,7 +20,7 @@ class CalculatorEngine:
         self.pending_operation = None
         self.last_operation = None
         self.last_operand = 0
-        self.should_reset_display = False
+        self.should_reset_display = False  # This is crucial!
         
     def clear(self):
         """Clear all stored values and operations"""
@@ -43,10 +43,10 @@ class CalculatorEngine:
             self.stored_value = current_value
             
         self.pending_operation = operation
-        self.should_reset_display = True
+        self.should_reset_display = True  # This MUST be set to True
         
-        # Return the stored value (first operand) for display
-        return self.stored_value
+        # Return the current value for display (don't change what user sees)
+        return current_value
         
     def calculate(self, current_value):
         """

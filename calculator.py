@@ -209,8 +209,15 @@ class AdvancedCalculator:
     def number_input(self, num):
         """Handle number button press"""
         current = self.display_var.get()
-        if current == "0" or current == "Error":
+        
+        # If an operator was just pressed, start fresh with new number
+        if hasattr(self.engine, 'should_reset_display') and self.engine.should_reset_display:
             self.display_var.set(num)
+            self.engine.should_reset_display = False
+        # If display shows 0 or Error, replace it
+        elif current == "0" or current == "Error":
+            self.display_var.set(num)
+        # Otherwise append to current number
         else:
             self.display_var.set(current + num)
             
@@ -219,7 +226,7 @@ class AdvancedCalculator:
         current = self.display_var.get()
         
         # Check if we need to reset display after an operation
-        if self.engine.should_reset_display:
+        if hasattr(self.engine, 'should_reset_display') and self.engine.should_reset_display:
             self.display_var.set("0.")
             self.engine.should_reset_display = False
         elif current == "Error":
@@ -234,18 +241,14 @@ class AdvancedCalculator:
         """Handle operator button press"""
         try:
             current_value = float(self.display_var.get())
-            print(f"Operator pressed: {op}, Current value: {current_value}")
-            
             result = self.engine.operator(op, current_value)
-            print(f"Engine result: {result}, Should reset flag: {self.engine.should_reset_display}")
             
             # Update history display
             if self.engine.pending_operation:
                 op_symbol = {"*": "×", "/": "÷"}.get(op, op)
                 self.history_var.set(f"{self.engine.stored_value} {op_symbol}")
             
-            # Don't change the display here - keep showing the current number
-            # The display will be reset when the next number is entered
+            # Keep the current display unchanged - it will reset on next number input
             
         except (ValueError, ZeroDivisionError) as e:
             self.display_var.set("Error")
@@ -308,6 +311,7 @@ class AdvancedCalculator:
     def clear_entry(self):
         """Clear current entry"""
         self.display_var.set("0")
+        self.engine.should_reset_display = False
         
     def backspace(self):
         """Remove last character"""
